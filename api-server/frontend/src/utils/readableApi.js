@@ -19,13 +19,13 @@ export const getAllPosts = () =>
   fetch(`${api}/posts/`, { headers })
     .then(res => res.json())
 
-export const getCategoryPosts = () =>
-  fetch(`${api}/:category/posts/`, { headers })
+export const getCategoryPosts = (category) =>
+  fetch(`${api}/:${category}/posts/`, { headers })
     .then(res => res.json())
 
-export const getPostComments = () =>
-  fetch(`${api}/posts/:id/comments/`, { headers })
-    .then(res => res.json())
+// export const getPostComments = () =>
+//   fetch(`${api}/posts/:id/comments/`, { headers })
+//     .then(res => res.json())
 
 // export const getAll = () =>
 //   fetch(`${api}/books`, { headers })

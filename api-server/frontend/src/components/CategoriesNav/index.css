@@ -1,0 +1,27 @@
+.get-back {
+  display: block;
+  top: 20px;
+  left: 15px;
+  width: 50px;
+  height: 53px;
+  background: lightgrey;
+  background-image: url('../../images/arrow-back.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 28px;
+  font-size: 0;
+}
+
+.nav-bar {
+  display: inline-flex;
+  justify-content: center;
+  width: 100%;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.5em;
+}
+
+.nav-bar li {
+  display: flex;
+  flex-grow: 1;
+  justify-content: center;
+}

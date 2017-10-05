@@ -1,10 +1,10 @@
 import React from 'react'
 import './index.css'
 
-const Posts = (props) => {
+const PostsList = (props) => {
   return (
     <div className="posts-container">
-      {props.posts.map((post) =>
+      {props.posts.length > 0 && props.posts.map((post) =>
         <div key={post.id} className="post">
           <div className="post-category">{post.category}</div>
           <div className="post-title">{post.title}</div>
@@ -24,4 +24,4 @@ const Posts = (props) => {
   )
 }
 
-export default Posts;
+export default PostsList;
