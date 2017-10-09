@@ -56,17 +56,3 @@ export function getCategories ( categories ) {
     categories
   }
 }
-
-export function getAllPosts ({ title, body, author, timestamp, voteScore, category, id, deleted }) {
-  return {
-    type: GET_CATEGORIES,
-    title, body, author, timestamp, voteScore, category, id, deleted
-  }
-}
-
-export function getComments ({ id, parentId, timestamp, body, author, voteScore, deleted, parentDeleted }) {
-  return {
-    type: GET_COMMENTS,
-    id, parentId, timestamp, body, author, voteScore, deleted, parentDeleted
-  }
-}

@@ -23,6 +23,10 @@ export const getCategoryPosts = (category) =>
   fetch(`${api}/:${category}/posts/`, { headers })
     .then(res => res.json())
 
+export const getAllCommentsOfPost = (id) =>
+  fetch(`${api}/posts/${id}/comments/`, { headers })
+    .then(res => res.json())
+
 // export const getPostComments = () =>
 //   fetch(`${api}/posts/:id/comments/`, { headers })
 //     .then(res => res.json())
@@ -42,13 +46,12 @@ export const getCategoryPosts = (category) =>
 //     body: JSON.stringify({ shelf })
 //   }).then(res => res.json())
 //
-// export const search = (query, maxResults) =>
-//   fetch(`${api}/search`, {
-//     method: 'POST',
-//     headers: {
-//       ...headers,
-//       'Content-Type': 'application/json'
-//     },
-//     body: JSON.stringify({ query, maxResults })
-//   }).then(res => res.json())
-//     .then(data => data.books)
+export const addPost = (id, timestamp, title, author, body, category) =>
+  fetch(`${api}/posts`, {
+    method: 'POST',
+    headers: {
+      ...headers,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ id, timestamp, title, author, body, category })
+  }).then(res => res.json())

@@ -16,21 +16,21 @@ body {
   justify-content: center;
   width: 60%;
   align-self: center;
-  margin: 10px 0px 10px 0px;
+  margin: 5px 0px 5px 0px;
 }
 
 .post-category {
   text-align: center;
   font-size: 0.8em;
   font-family: 'Raleway', sans-serif;
-  margin: 10px 0px 10px 0px;
+  margin: 5px 0px 5px 0px;
 }
 
 .post-title {
   text-align: center;
-  font-size: 2em;
+  font-size: 1.5em;
   font-family: 'Dancing Script', cursive;
-  margin: 10px 0px 10px 0px;
+  margin: 5px 0px 5px 0px;
 
 }
 
@@ -40,7 +40,7 @@ body {
   font-family: 'Josefin Slab', serif;
   border-top: 3px solid black;
   border-bottom: 3px solid black;
-  margin: 10px auto 10px ;
+  margin: 5px auto 5px ;
   width: 90%;
 }
 
@@ -48,7 +48,7 @@ body {
   text-align: left;
   font-size: 0.9em;
   font-family: 'Poppins', sans-serif;
-  margin: 10px auto 10px ;
+  margin: 5px auto 5px ;
   width: 90%;
 }
 
@@ -56,29 +56,10 @@ body {
   text-align: right;
   font-size: 0.9em;
   font-family: 'Poppins', sans-serif;
-  margin: 10px auto 10px ;
+  margin: 5px auto 5px ;
   width: 90%;
   border-bottom: 1px solid black;
 }
-
-.post-add {
-  flex: 1;
-}
-
-.post-add input {
-  width: 80%;
-  padding: 15px 10px;
-  font-size: 1.25em;
-  border: none;
-  outline: none;
-  margin: 10px auto 10px;
-  justify-content: center;
-}
-
-.post-add button {
-  width: 15%;
-}
-
 
 /*font-family: 'Raleway', sans-serif;
 font-family: 'Poppins', sans-serif;

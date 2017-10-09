@@ -6,7 +6,6 @@ import './index.css'
 const CategoriesNav = (props) => {
   return (
     <div>
-      <Link className="get-back" to='/'>Close</Link>
       <ul className='nav-bar'>
         <li>
           <Link to={`/`}>

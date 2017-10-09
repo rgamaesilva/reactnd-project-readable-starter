@@ -11,13 +11,6 @@ const PostsList = (props) => {
           <div className="post-author">{`by ${post.author} @ ${Date(post.timestamp)}`}</div>
           <div className="post-body">{post.body}</div>
           <div className="post-vote">{`${post.voteScore} VOTES`}</div>
-        <div className="post-add">
-            <input
-              type="text"
-              placeholder="Add new comment"
-              />
-              <button>POST</button>
-        </div>
         </div>
       )}
     </div>
