@@ -8,7 +8,13 @@ function comments (state = initialState, action) {
   const { comments } = action
   switch (action.type) {
     case GET_COMMENTS:
-      return comments
+      const commentsAsObjects = comments.reduce((accumulator, currentValue) => {
+        return {
+          ...accumulator,
+          [currentValue.id]: currentValue
+        }
+      }, {})
+      return commentsAsObjects
     default:
       return state
   }
