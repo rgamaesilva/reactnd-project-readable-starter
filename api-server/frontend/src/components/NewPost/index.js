@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import * as api from '../../utils/readableApi'
 import uuidv4 from 'uuid/v4'
+import './index.css'
 
 class  NewPost extends Component {
   state = {
@@ -30,8 +31,8 @@ class  NewPost extends Component {
     this.setState({ categorySelect })
   }
 
-  onAddPost (id, timestamp, title, body, author, category) {
-    api.addPost(id, timestamp, title, body, author, category)
+  onAddPost (id, timestamp, title, body, author, category, voteScore) {
+    api.addPost(id, timestamp, title, body, author, category, voteScore)
     window.location.href = '../';
   }
 
@@ -40,19 +41,19 @@ class  NewPost extends Component {
   const id = uuidv4()
 
     return (
-      <div className='post-form'>
-        <div className='title-author-form'>
-          <input type='text' placeholder='Title' onChange={this.onChangeTitle}/>
-          <input type='text' placeholder='Author' onChange={this.onChangeAuthor}/>
-          <select onChange={this.onChangeCategory}>
+      <div className='form-container'>
+        <div className='form-container-top'>
+          <input className='form-input' type='text' placeholder='Title' onChange={this.onChangeTitle}/>
+          <input className='form-input' type='text' placeholder='Author' onChange={this.onChangeAuthor}/>
+          <select className='select' onChange={this.onChangeCategory}>
               <option value='none' defaultValue >none</option>
             {this.props.categories.map((category) => (
               <option key={category.name} value={category.name} >{category.name}</option>
             ))}
           </select>
         </div>
-        <input className='body-form' type='text' placeholder='Body' onChange={this.onChangeBody}/>
-        <button onClick={() => this.onAddPost(id, Date.now(), this.state.titleInput, this.state.bodyInput, this.state.authorInput, this.state.categorySelect)} >ADD POST</button>
+        <input className='form-input-body' type='text' placeholder='Body' onChange={this.onChangeBody}/>
+        <button onClick={() => this.onAddPost(id, Date.now(), this.state.titleInput, this.state.bodyInput, this.state.authorInput, this.state.categorySelect, 0)} >ADD POST</button>
       </div>
     )
   }

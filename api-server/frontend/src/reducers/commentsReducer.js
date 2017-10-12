@@ -2,7 +2,7 @@ import {
   GET_COMMENTS,
 } from '../actions/commentsActions'
 
-const initialState = []
+const initialState = {}
 
 function comments (state = initialState, action) {
   const { comments } = action
@@ -14,7 +14,7 @@ function comments (state = initialState, action) {
           [currentValue.id]: currentValue
         }
       }, {})
-      return commentsAsObjects
+      return Object.assign({}, state, commentsAsObjects)
     default:
       return state
   }

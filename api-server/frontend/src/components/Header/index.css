@@ -7,6 +7,20 @@ h1 {
 
 }
 
+.open-addPost {
+  display: flex;
+  top: 20px;
+  left: 15px;
+  width: 50px;
+  height: 53px;
+  /*background: white;*/
+  background-image: url('../../images/plus-sign.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 28px;
+  font-size: 0;
+  margin: auto;
+}
 /*font-family: 'Raleway', sans-serif;
 font-family: 'Poppins', sans-serif;
 font-family: 'Dancing Script', cursive;

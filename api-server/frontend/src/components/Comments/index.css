@@ -1,0 +1,112 @@
+body {
+  background-color: lightgrey;
+}
+
+.posts-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.post {
+  display: flex;
+  flex-direction: column;
+  border-color: black;
+  background-color: white;
+  justify-content: center;
+  width: 60%;
+  align-self: center;
+  margin: 5px 0px 5px 0px;
+}
+
+.post-category {
+  text-align: center;
+  font-size: 0.8em;
+  font-family: 'Raleway', sans-serif;
+  margin: 5px 0px 5px 0px;
+}
+
+.post-title {
+  text-align: center;
+  font-size: 1.5em;
+  font-family: 'Dancing Script', cursive;
+  margin: 5px 0px 5px 0px;
+
+}
+
+.post-author {
+  text-align: center;
+  font-size: 1em;
+  font-family: 'Josefin Slab', serif;
+  border-top: 3px solid black;
+  border-bottom: 3px solid black;
+  margin: 5px auto 5px ;
+  width: 90%;
+}
+
+.post-body {
+  text-align: left;
+  font-size: 0.9em;
+  font-family: 'Poppins', sans-serif;
+  margin: 5px auto 5px ;
+  width: 90%;
+}
+
+.post-vote {
+  text-align: right;
+  font-size: 0.9em;
+  font-family: 'Poppins', sans-serif;
+  margin: 5px auto 5px ;
+  width: 90%;
+  border-bottom: 1px solid black;
+}
+
+.comment {
+  display: flex;
+  flex-direction: column;
+  border-color: orange;
+  background-color: black;
+  justify-content: center;
+  width: 60%;
+  align-self: center;
+  margin: 5px 0px 5px 0px;
+  color: orange;
+}
+
+.comment-author {
+  text-align: center;
+  font-size: 1em;
+  font-family: 'Josefin Slab', serif;
+  border-top: 3px solid orange;
+  border-bottom: 3px solid orange;
+  margin: 5px auto 5px ;
+  width: 90%;
+  color: orange;
+
+}
+
+.comment-body {
+  text-align: left;
+  font-size: 0.9em;
+  font-family: 'Poppins', sans-serif;
+  margin: 5px auto 5px ;
+  width: 90%;
+  color: orange;
+
+}
+
+.comment-vote {
+  text-align: right;
+  font-size: 0.9em;
+  font-family: 'Poppins', sans-serif;
+  margin: 5px auto 5px ;
+  width: 90%;
+  border-bottom: 1px solid orange;
+  color: orange;
+
+}
+
+/*font-family: 'Raleway', sans-serif;
+font-family: 'Poppins', sans-serif;
+font-family: 'Dancing Script', cursive;
+font-family: 'Josefin Slab', serif;*/

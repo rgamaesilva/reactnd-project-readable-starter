@@ -46,12 +46,22 @@ export const getAllCommentsOfPost = (id) =>
 //     body: JSON.stringify({ shelf })
 //   }).then(res => res.json())
 //
-export const addPost = (id, timestamp, title, author, body, category) =>
+export const addPost = (id, timestamp, title, body, author, category, voteScore) =>
   fetch(`${api}/posts`, {
     method: 'POST',
     headers: {
       ...headers,
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify({ id, timestamp, title, author, body, category })
+    body: JSON.stringify({ id, timestamp, title, body, author, category, voteScore })
   }).then(res => res.json())
+
+  export const upVote = (upVote, postId) =>
+    fetch(`posts/${postId}`, {
+      method: 'POST',
+      headers: {
+        ...headers,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(upVote)
+    }).then(res => res.json())

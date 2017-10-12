@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import './App.css';
 import { Route, withRouter } from 'react-router-dom'
 import * as api from './utils/readableApi'
+import { sortedArray } from './utils/helper.js'
 import Header from './components/Header'
 import CategoriesNav from './components/CategoriesNav'
 import PostsList from './components/PostsList'
@@ -24,6 +25,11 @@ class App extends Component {
 
     api.getAllPosts().then((posts) => {
       this.props.getAllPosts(posts)
+      for(const post of posts) {
+        api.getAllCommentsOfPost(post.id).then((comments) => {
+          this.props.getComments(comments)
+        })
+      }
     })
   }
 
@@ -35,6 +41,10 @@ class App extends Component {
     this.props.changeSortOrder(event.target.value)
   }
 
+  onUpVotePost = (voteUp, postId) => {
+    api.upVote(voteUp, postId)
+  }
+
   render() {
 
     return (
@@ -44,11 +54,11 @@ class App extends Component {
         <CategoriesNav
           categories={this.props.categories}
         />
-        <select defaultValue={this.props.sortBy.order} onChange={this.onChangeOrder}>
+        <select className="select" defaultValue={this.props.sortBy.order} onChange={this.onChangeOrder}>
           <option value='ascending'>Ascending</option>
           <option value='descending'>Descending</option>
         </select>
-        <select defaultValue={this.props.sortBy.prop} onChange={this.onChangeProp}>
+        <select className="select" defaultValue={this.props.sortBy.prop} onChange={this.onChangeProp}>
           <option value='author'>Author</option>
           <option value='body'>Body</option>
           <option value='comments'>Number Of Comments</option>
@@ -65,19 +75,29 @@ class App extends Component {
             key={category.name}
             exact path={`/${category.name}`}
             render={ () => (
-              <PostsList posts={this.props.posts.filter((post) => post.category === category.name)}/>
+              <PostsList
+                posts={this.props.posts.filter((post) => post.category === category.name)}
+                onUpVotePost={this.onUpVotePost}
+              />
             )}/>
         ))}
-        <Route path='/newpost' render={ () => (
+        <Route exact path='/newpost' render={ () => (
           <NewPost
             categories={this.props.categories}
           />
         )}/>
-        <Route path='/:postId' render={({ match }) => (
-          <Comments
-            post={Object.keys(this.props.posts).map((key) => (posts[key])).filter((post) => post.id === match.params.postId)[0]}
-          />
-        )}/>
+        {this.props.categories.map((category) => (
+          <Route
+            key={category.name}
+            path={`/${category.name}/:postId`}
+            render={ ({ match }) => (
+              <Comments
+                post={this.props.posts.filter((post) => post.id === match.params.postId)[0]}
+                comments={this.props.comments}
+                posts={this.props.posts}
+              />
+            )}/>
+        ))}
       </div>
     );
   }
@@ -85,19 +105,11 @@ class App extends Component {
 
 function mapStateToProps ({ categories, posts, comments, sortBy }) {
   const postsToArray = Object.keys(posts).map((key) => (posts[key]))
-  const sortProp = sortBy.prop
-  const sortedPosts = () => {
-    if(sortBy.order === 'ascending') {
-      return postsToArray.sort((a,b) => a[sortProp] > b[sortProp])
-    } else {
-      return postsToArray.sort((a,b) => b[sortProp] > a[sortProp])
-    }
-  }
-
+  const commentsToArray = Object.keys(comments).map((key) => (comments[key]))
   return {
     categories,
-    comments,
-    posts: sortedPosts(),
+    comments: sortedArray(commentsToArray, sortBy),
+    posts: sortedArray(postsToArray, sortBy),
     sortBy
   }
 }
