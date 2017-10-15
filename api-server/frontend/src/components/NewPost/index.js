@@ -53,7 +53,7 @@ class  NewPost extends Component {
           </select>
         </div>
         <input className='form-input-body' type='text' placeholder='Body' onChange={this.onChangeBody}/>
-        <button onClick={() => this.onAddPost(id, Date.now(), this.state.titleInput, this.state.bodyInput, this.state.authorInput, this.state.categorySelect, 0)} >ADD POST</button>
+        <button className='post-button' onClick={() => this.onAddPost(id, Date.now(), this.state.titleInput, this.state.bodyInput, this.state.authorInput, this.state.categorySelect, 0)} >ADD POST</button>
       </div>
     )
   }

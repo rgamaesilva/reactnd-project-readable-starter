@@ -1,4 +1,3 @@
-
 const api = 'http://localhost:3001'
 
 
@@ -27,6 +26,36 @@ export const getAllCommentsOfPost = (id) =>
   fetch(`${api}/posts/${id}/comments/`, { headers })
     .then(res => res.json())
 
+export const addPost = (id, timestamp, title, body, author, category, voteScore) =>
+  fetch(`${api}/posts`, {
+    method: 'POST',
+    headers: {
+      ...headers,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ id, timestamp, title, body, author, category, voteScore })
+  }).then(res => res.json())
+
+export const votePost = (option, postId) =>
+  fetch(`${api}/posts/${postId}`, {
+    method: 'POST',
+    headers: {
+      ...headers,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(option)
+  }).then(res => res.json())
+
+export const deletePost = (postId, option) =>
+  fetch(`${api}/posts/${postId}`, {
+    method: 'DELETE',
+    headers: {
+      ...headers,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(option)
+  }).then(res => res.json())
+
 // export const getPostComments = () =>
 //   fetch(`${api}/posts/:id/comments/`, { headers })
 //     .then(res => res.json())
@@ -46,22 +75,3 @@ export const getAllCommentsOfPost = (id) =>
 //     body: JSON.stringify({ shelf })
 //   }).then(res => res.json())
 //
-export const addPost = (id, timestamp, title, body, author, category, voteScore) =>
-  fetch(`${api}/posts`, {
-    method: 'POST',
-    headers: {
-      ...headers,
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({ id, timestamp, title, body, author, category, voteScore })
-  }).then(res => res.json())
-
-  export const upVote = (upVote, postId) =>
-    fetch(`posts/${postId}`, {
-      method: 'POST',
-      headers: {
-        ...headers,
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(upVote)
-    }).then(res => res.json())

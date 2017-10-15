@@ -5,7 +5,7 @@ import './index.css'
 
 const CategoriesNav = (props) => {
   return (
-    <div>
+    <div className='nav-container'>
       <ul className='nav-bar'>
         <li>
           <Link to={`/`}>

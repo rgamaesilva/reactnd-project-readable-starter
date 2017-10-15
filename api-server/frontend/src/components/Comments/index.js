@@ -12,6 +12,7 @@ const Comments = (props) => {
     {props.post &&
       <Post
         posts={props.post}
+        onVotePost={props.onVotePost}
       />
     }
     {commentsAsArray &&
