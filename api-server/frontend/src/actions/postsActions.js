@@ -1,5 +1,7 @@
 export const GET_ALLPOSTS = 'GET_ALLPOSTS'
 export const ADD_POST = 'ADD_POST'
+export const CHANGE_POST_VOTE_SCORE = 'CHANGE_POST_VOTE_SCORE'
+export const DELETE_POST = 'DELETE_POST'
 
 export function getAllPosts ( posts ) {
   return {
@@ -12,5 +14,21 @@ export function addPosts ( newPost ) {
   return {
     type: ADD_POST,
     newPost,
+  }
+}
+
+export function changePostVoteScore ( {postId, voteChangeValue} ) {
+  return{
+    type: CHANGE_POST_VOTE_SCORE,
+    postId,
+    voteChangeValue,
+  }
+}
+
+export function deletePost ( {postId, deleted} ) {
+  return{
+    type: DELETE_POST,
+    postId,
+    deleted,
   }
 }

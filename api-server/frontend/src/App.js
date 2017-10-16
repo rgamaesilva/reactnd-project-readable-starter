@@ -12,8 +12,8 @@ import Comments from './components/Comments'
 import Filter from './components/Filter'
 import UpdatePost from './components/UpdatePost'
 import { getCategories } from './actions/categoriesActions'
-import { getAllPosts } from './actions/postsActions'
-import { getComments} from './actions/commentsActions'
+import { getAllPosts, changePostVoteScore, deletePost } from './actions/postsActions'
+import { getComments, changeCommentVoteScore, deleteComment } from './actions/commentsActions'
 import { changeSortProp, changeSortOrder } from './actions/sortActions'
 
 class App extends Component {
@@ -43,16 +43,28 @@ class App extends Component {
     this.props.changeSortOrder(event.target.value)
   }
 // method for voting posts up and down
-  onVotePost = (option, postId) => {
-    api.votePost(option, postId)
-    console.log(option)
-    console.log(postId)
+  onVotePost = (option, postId, voteChangeValue) => {
+    api.votePost(option, postId).then((post) => {
+      this.props.changePostVoteScore({postId: post.id, voteChangeValue})
+    })
+  }
+// method for voting comments up and down
+  onVoteComment =(option, commentId, voteChangeValue) => {
+    api.voteComment(option, commentId).then((comment) => {
+      this.props.changeCommentVoteScore({commentId: comment.id, voteChangeValue})
+    })
   }
 // method for deleting a post
-  onDeletePost = (postId, option) => {
-    api.deletePost(postId, option)
-    console.log(postId)
-    console.log(option)
+  onDeletePost = (postId, deleted) => {
+    api.deletePost(postId, deleted).then((post) => {
+      this.props.deletePost({postId: post.id, deleted})
+    })
+  }
+// method for deleting a post
+  onDeleteComment = (commentId, deleted) => {
+    api.deleteComment(commentId, deleted).then((comment) => {
+      this.props.deleteComment({commentId: comment.id, deleted})
+    })
   }
 
   render() {
@@ -78,6 +90,7 @@ class App extends Component {
             posts={this.props.posts}
             onVotePost={this.onVotePost}
             onDeletePost={this.onDeletePost}
+            comments={this.props.comments}
           />
         )}/>
 {/* here renders the posts filtered by the selected category */}
@@ -90,6 +103,7 @@ class App extends Component {
                 posts={this.props.posts.filter((post) => post.category === category.name)}
                 onVotePost={this.onVotePost}
                 onDeletePost={this.onDeletePost}
+                comments={this.props.comments}
               />
             )}/>
         ))}
@@ -118,6 +132,8 @@ class App extends Component {
                 posts={this.props.posts}
                 onVotePost={this.onVotePost}
                 onDeletePost={this.onDeletePost}
+                onVoteComment={this.onVoteComment}
+                onDeleteComment={this.onDeleteComment}
               />
             )}/>
         ))}
@@ -130,11 +146,16 @@ function mapStateToProps ({ categories, posts, comments, sortBy }) {
 // transform the posts object into an array for mapping over it. Same thing with the comments, and also mapped them to props.
 // also the categories and the sortBy are mapped to props.
   const postsToArray = Object.keys(posts).map((key) => (posts[key]))
+// here the posts as an array are filtered to render only the ones with the property deleted false.
+  const filteredPostsArray = postsToArray.filter((post) => post.deleted !== "true")
   const commentsToArray = Object.keys(comments).map((key) => (comments[key]))
+// here the comments as an array are filtered to render only the ones with the property deleted false.
+  const filteredCommentsArray = commentsToArray.filter((comment) => comment.deleted !== "true")
+
   return {
     categories,
-    comments: sortedArray(commentsToArray, sortBy),
-    posts: sortedArray(postsToArray, sortBy),
+    comments: sortedArray(filteredCommentsArray, sortBy),
+    posts: sortedArray(filteredPostsArray, sortBy),
     sortBy
   }
 }
@@ -147,6 +168,10 @@ function mapDispatchToProps (dispatch) {
     getComments: (data) => dispatch(getComments(data)),
     changeSortOrder: (data) => dispatch(changeSortOrder(data)),
     changeSortProp: (data) => dispatch(changeSortProp(data)),
+    changePostVoteScore: (data) => dispatch(changePostVoteScore(data)),
+    changeCommentVoteScore: (data) => dispatch(changeCommentVoteScore(data)),
+    deletePost: (data) => dispatch(deletePost(data)),
+    deleteComment: (data) => dispatch(deleteComment(data)),
   }
 }
 

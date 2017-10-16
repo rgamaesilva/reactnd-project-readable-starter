@@ -3,23 +3,23 @@ import './index.css'
 import { Link } from 'react-router-dom'
 
 const Post = (props) => {
-
   return (
-    <div key={props.posts.id} className="post">
-      <div className="post-category">{props.posts.category}</div>
-      <Link to={`/${props.posts.category}/${props.posts.id}`}>
-        <div className="post-title">{props.posts.title}</div>
+    <div key={props.post.id} className="post">
+      <div className="post-category">{props.post.category}</div>
+      <Link to={`/${props.post.category}/${props.post.id}`}>
+        <div className="post-title">{props.post.title}</div>
       </Link>
-      <div className="post-author">{`by ${props.posts.author} @ ${new Date(props.posts.timestamp)}`}</div>
-      <div className="post-body">{props.posts.body}</div>
+      <div className="post-author">{`by ${props.post.author} @ ${new Date(props.post.timestamp)}`}</div>
+      <div className="post-body">{props.post.body}</div>
       <div className="vote-container">
-        <button className="vote-increment" onClick={() => props.onVotePost({option: "upVote"}, props.posts.id)}></button>
-        <div className="vote-count">{`${props.posts.voteScore} VOTES`}</div>
-        <button className="vote-decrement" onClick={() => props.onVotePost({option: "downVote"}, props.posts.id)}></button>
+        <button className="vote-increment" onClick={() => props.onVotePost({option: "upVote"}, props.post.id, 1)}></button>
+        <div className="vote-count">{`${props.post.voteScore} VOTES`}</div>
+        <div className="vote-count">{`${props.comments.length} COMMENTS`}</div>
+        <button className="vote-decrement" onClick={() => props.onVotePost({option: "downVote"}, props.post.id, -1)}></button>
       </div>
       <div className='edit-container'>
-        <button className='edit-button' onClick={() => window.location.href = `../${props.posts.id}/updatePost`}>EDIT</button>
-        <button className='delete-button' onClick={() => props.onDeletePost(props.posts.id, {deleted: "true"})}>DELETE</button>
+        <button className='edit-button' onClick={() => window.location.href = `../${props.post.id}/updatePost`}>EDIT</button>
+        <button className='delete-button' onClick={() => props.onDeletePost(props.post.id, "true")}>DELETE</button>
       </div>
     </div>
   )

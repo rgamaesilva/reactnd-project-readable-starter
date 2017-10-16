@@ -46,8 +46,28 @@ export const votePost = (option, postId) =>
     body: JSON.stringify(option)
   }).then(res => res.json())
 
+export const voteComment = (option, commentId) =>
+  fetch(`${api}/comments/${commentId}`, {
+    method: 'POST',
+    headers: {
+      ...headers,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(option)
+  }).then(res => res.json())
+
 export const deletePost = (postId, option) =>
   fetch(`${api}/posts/${postId}`, {
+    method: 'DELETE',
+    headers: {
+      ...headers,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(option)
+  }).then(res => res.json())
+
+export const deleteComment = (commentId, option) =>
+  fetch(`${api}/comments/${commentId}`, {
     method: 'DELETE',
     headers: {
       ...headers,

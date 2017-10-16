@@ -11,8 +11,10 @@ const Comments = (props) => {
     <div className="posts-container">
     {props.post &&
       <Post
-        posts={props.post}
+        post={props.post}
         onVotePost={props.onVotePost}
+        onDeletePost={props.onDeletePost}
+        comments={props.comments.filter((comment) => props.post.id === comment.parentId)}
       />
     }
     {commentsAsArray &&
@@ -23,6 +25,15 @@ const Comments = (props) => {
               <div className="comment-author">{`by ${comment.author} @ ${new Date(comment.timestamp)}`}</div>
               <div className="comment-body">{comment.body}</div>
               <div className="comment-vote">{`${comment.voteScore} VOTES`}</div>
+              <div className="vote-container">
+                <button className="vote-increment" onClick={() => props.onVoteComment({option: "upVote"}, comment.id, 1)}></button>
+                <div className="vote-count">{`${comment.voteScore} VOTES`}</div>
+                <button className="vote-decrement" onClick={() => props.onVoteComment({option: "downVote"}, comment.id, -1)}></button>
+              </div>
+              <div className='edit-container'>
+                <button className='edit-button'>EDIT</button>
+                <button className='delete-button' onClick={() => props.onDeleteComment(comment.id, "true")}>DELETE</button>
+              </div>
             </div>
           )
         }

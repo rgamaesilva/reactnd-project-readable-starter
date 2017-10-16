@@ -8,10 +8,11 @@ const PostsList = (props) => {
     <div className="posts-container">
       {props.posts.length > 0 && props.posts.map((post) =>
         <Post
-          posts={post}
+          post={post}
           key={post.id}
           onVotePost={props.onVotePost}
           onDeletePost={props.onDeletePost}
+          comments={props.comments.filter((comment) => post.id === comment.parentId)}
         />
       )}
     </div>
