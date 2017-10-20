@@ -15,6 +15,8 @@ const Comments = (props) => {
         onVotePost={props.onVotePost}
         onDeletePost={props.onDeletePost}
         comments={props.comments.filter((comment) => props.post.id === comment.parentId)}
+        editMode={props.editMode}
+        onChangeEditMode={props.onChangeEditMode}
       />
     }
     {commentsAsArray &&
@@ -31,8 +33,8 @@ const Comments = (props) => {
                 <button className="vote-decrement" onClick={() => props.onVoteComment({option: "downVote"}, comment.id, -1)}></button>
               </div>
               <div className='edit-container'>
-                <button className='edit-button'>EDIT</button>
-                <button className='delete-button' onClick={() => props.onDeleteComment(comment.id, "true")}>DELETE</button>
+                <button className='edit-button' onClick={() => window.location.href = `../${comment.id}/editComment`}>EDIT</button>
+                <button className='delete-button' onClick={() => props.onDeleteComment(comment.id, true)}>DELETE</button>
               </div>
             </div>
           )

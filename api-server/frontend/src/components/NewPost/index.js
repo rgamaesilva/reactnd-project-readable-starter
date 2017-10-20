@@ -1,7 +1,11 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom'
 import * as api from '../../utils/readableApi'
 import uuidv4 from 'uuid/v4'
 import './index.css'
+import { addPost } from '../../actions/postsActions'
+
 
 class  NewPost extends Component {
   state = {
@@ -32,8 +36,10 @@ class  NewPost extends Component {
   }
 
   onAddPost (id, timestamp, title, body, author, category, voteScore) {
-    api.addPost(id, timestamp, title, body, author, category, voteScore)
-    window.location.href = '../';
+    api.addPost(id, timestamp, title, body, author, category, voteScore).then((post) => {
+      this.props.addPost({newPost: post})
+    })
+    this.props.history.push("/")
   }
 
   render() {
@@ -59,4 +65,12 @@ class  NewPost extends Component {
   }
 }
 
-export default NewPost;
+
+function mapDispatchToProps (dispatch) {
+  return {
+// here all the actions are mapped to props.
+    addPost: (data) => dispatch(addPost(data)),
+  }
+}
+
+export default withRouter(connect(null, mapDispatchToProps)(NewPost))

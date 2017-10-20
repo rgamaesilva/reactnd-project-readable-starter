@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import './App.css';
 import { Route, withRouter } from 'react-router-dom'
@@ -10,10 +10,11 @@ import PostsList from './components/PostsList'
 import NewPost from './components/NewPost'
 import Comments from './components/Comments'
 import Filter from './components/Filter'
-import UpdatePost from './components/UpdatePost'
+import EditPost from './components/EditPost'
+import EditComment from './components/EditComment'
 import { getCategories } from './actions/categoriesActions'
 import { getAllPosts, changePostVoteScore, deletePost } from './actions/postsActions'
-import { getComments, changeCommentVoteScore, deleteComment } from './actions/commentsActions'
+import { getComments, changeCommentVoteScore, deleteComment, deleteParentComment } from './actions/commentsActions'
 import { changeSortProp, changeSortOrder } from './actions/sortActions'
 
 class App extends Component {
@@ -54,11 +55,16 @@ class App extends Component {
       this.props.changeCommentVoteScore({commentId: comment.id, voteChangeValue})
     })
   }
-// method for deleting a post
+// method for deleting a post and also it's comments
   onDeletePost = (postId, deleted) => {
     api.deletePost(postId, deleted).then((post) => {
-      this.props.deletePost({postId: post.id, deleted})
+      this.props.deletePost({ postId: post.id, deleted })
+      const commentsOfPost = this.props.comments.filter((comment) => comment.parentId === post.id)
+      for(const comment of commentsOfPost) {
+        this.props.deleteParentComment({parentId: comment.parentId, commentId: comment.id, parentDeleted: deleted})
+      }
     })
+    this.props.history.push("/")
   }
 // method for deleting a post
   onDeleteComment = (commentId, deleted) => {
@@ -113,11 +119,16 @@ class App extends Component {
             categories={this.props.categories}
           />
         )}/>
-{/* here renders the form for updating the information of the post */}
-        <Route exact path='/:postId/updatePost' render={ ({ match }) => (
-          <UpdatePost
-            categories={this.props.categories}
+{/* here renders the form for editing a post in a new view */}
+        <Route exact path='/:postId/editPost' render={ ({ match }) => (
+          <EditPost
             post={this.props.posts.filter((post) => post.id === match.params.postId)[0]}
+          />
+        )}/>
+{/* here renders the form for editing a comment in a new view */}
+        <Route exact path='/:commentId/editComment' render={ ({ match }) => (
+          <EditComment
+            comment={this.props.comments.filter((comment) => comment.id === match.params.commentId)[0]}
           />
         )}/>
 {/* here renders the comments of the selected post */}
@@ -142,21 +153,23 @@ class App extends Component {
   }
 }
 
-function mapStateToProps ({ categories, posts, comments, sortBy }) {
+function mapStateToProps ({ categories, posts, comments, sortBy, editMode }) {
 // transform the posts object into an array for mapping over it. Same thing with the comments, and also mapped them to props.
 // also the categories and the sortBy are mapped to props.
   const postsToArray = Object.keys(posts).map((key) => (posts[key]))
 // here the posts as an array are filtered to render only the ones with the property deleted false.
-  const filteredPostsArray = postsToArray.filter((post) => post.deleted !== "true")
+  const filteredPostsArray = postsToArray.filter((post) => post.deleted !== true)
   const commentsToArray = Object.keys(comments).map((key) => (comments[key]))
 // here the comments as an array are filtered to render only the ones with the property deleted false.
-  const filteredCommentsArray = commentsToArray.filter((comment) => comment.deleted !== "true")
+  const filteredCommentsArrayDeleted = commentsToArray.filter((comment) => comment.deleted !== true)
+// here the comments as an array are filtered to render only the ones with the property parentDeleted false.
+  const filteredCommentsArrayDeletedParentDeleted = filteredCommentsArrayDeleted.filter((comment) => comment.parentDeleted !== true)
 
   return {
     categories,
-    comments: sortedArray(filteredCommentsArray, sortBy),
+    comments: sortedArray(filteredCommentsArrayDeletedParentDeleted, sortBy),
     posts: sortedArray(filteredPostsArray, sortBy),
-    sortBy
+    sortBy,
   }
 }
 
@@ -172,6 +185,7 @@ function mapDispatchToProps (dispatch) {
     changeCommentVoteScore: (data) => dispatch(changeCommentVoteScore(data)),
     deletePost: (data) => dispatch(deletePost(data)),
     deleteComment: (data) => dispatch(deleteComment(data)),
+    deleteParentComment: (data) => dispatch(deleteParentComment(data)),
   }
 }
 

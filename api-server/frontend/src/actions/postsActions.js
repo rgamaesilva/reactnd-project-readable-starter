@@ -2,6 +2,7 @@ export const GET_ALLPOSTS = 'GET_ALLPOSTS'
 export const ADD_POST = 'ADD_POST'
 export const CHANGE_POST_VOTE_SCORE = 'CHANGE_POST_VOTE_SCORE'
 export const DELETE_POST = 'DELETE_POST'
+export const EDIT_POST = 'EDIT_POST'
 
 export function getAllPosts ( posts ) {
   return {
@@ -10,7 +11,7 @@ export function getAllPosts ( posts ) {
   }
 }
 
-export function addPosts ( newPost ) {
+export function addPost ( {newPost} ) {
   return {
     type: ADD_POST,
     newPost,
@@ -30,5 +31,14 @@ export function deletePost ( {postId, deleted} ) {
     type: DELETE_POST,
     postId,
     deleted,
+  }
+}
+
+export function editPost ({postId, title, body}) {
+  return {
+    type: EDIT_POST,
+    postId,
+    title,
+    body
   }
 }

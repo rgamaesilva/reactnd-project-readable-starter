@@ -13,6 +13,8 @@ const PostsList = (props) => {
           onVotePost={props.onVotePost}
           onDeletePost={props.onDeletePost}
           comments={props.comments.filter((comment) => post.id === comment.parentId)}
+          editMode={props.editMode}
+          onChangeEditMode={props.onChangeEditMode}
         />
       )}
     </div>

@@ -18,8 +18,8 @@ const Post = (props) => {
         <button className="vote-decrement" onClick={() => props.onVotePost({option: "downVote"}, props.post.id, -1)}></button>
       </div>
       <div className='edit-container'>
-        <button className='edit-button' onClick={() => window.location.href = `../${props.post.id}/updatePost`}>EDIT</button>
-        <button className='delete-button' onClick={() => props.onDeletePost(props.post.id, "true")}>DELETE</button>
+        <button className='edit-button' onClick={() => window.location.href = `../${props.post.id}/EditPost`}>EDIT</button>
+        <button className='delete-button' onClick={() => props.onDeletePost(props.post.id, true)}>DELETE</button>
       </div>
     </div>
   )

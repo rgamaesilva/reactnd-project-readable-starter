@@ -7,8 +7,8 @@ const Header = (props) => {
   return (
     <div>
       <h1>{props.title}</h1>
-      <Link className='open-addPost' to='/newpost'>
-        <div>ADD NEW POST</div>
+      <Link to='/newpost'>
+        <div className='open-addPost'>ADD NEW POST</div>
       </Link>
     </div>
   )
