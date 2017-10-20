@@ -36,13 +36,17 @@ class  NewPost extends Component {
   }
 
   onAddPost (id, timestamp, title, body, author, category, voteScore) {
+    const { addPost, history } = this.props
     api.addPost(id, timestamp, title, body, author, category, voteScore).then((post) => {
-      this.props.addPost({newPost: post})
+      addPost({newPost: post})
     })
-    this.props.history.push("/")
+    history.push("/")
   }
 
   render() {
+
+  const { categories } = this.props
+  const { titleInput, bodyInput, authorInput, categorySelect } = this.state
 
   const id = uuidv4()
 
@@ -53,13 +57,13 @@ class  NewPost extends Component {
           <input className='form-input' type='text' placeholder='Author' onChange={this.onChangeAuthor}/>
           <select className='select' onChange={this.onChangeCategory}>
               <option value='none' defaultValue >none</option>
-            {this.props.categories.map((category) => (
+            {categories.map((category) => (
               <option key={category.name} value={category.name} >{category.name}</option>
             ))}
           </select>
         </div>
         <input className='form-input-body' type='text' placeholder='Body' onChange={this.onChangeBody}/>
-        <button className='post-button' onClick={() => this.onAddPost(id, Date.now(), this.state.titleInput, this.state.bodyInput, this.state.authorInput, this.state.categorySelect, 0)} >ADD POST</button>
+        <button className='post-button' onClick={() => this.onAddPost(id, Date.now(), titleInput, bodyInput, authorInput, categorySelect, 0)} >ADD POST</button>
       </div>
     )
   }

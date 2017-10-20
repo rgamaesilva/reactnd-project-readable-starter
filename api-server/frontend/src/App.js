@@ -12,6 +12,7 @@ import Comments from './components/Comments'
 import Filter from './components/Filter'
 import EditPost from './components/EditPost'
 import EditComment from './components/EditComment'
+import NewComment from './components/NewComment'
 import { getCategories } from './actions/categoriesActions'
 import { getAllPosts, changePostVoteScore, deletePost } from './actions/postsActions'
 import { getComments, changeCommentVoteScore, deleteComment, deleteParentComment } from './actions/commentsActions'
@@ -119,6 +120,12 @@ class App extends Component {
             categories={this.props.categories}
           />
         )}/>
+{/* here renders the form for adding a new post in a new view */}
+        <Route exact path='/:postId/newComment' render={ ({ match }) => (
+          <NewComment
+            post={this.props.posts.filter((post) => post.id === match.params.postId)[0]}
+          />
+        )}/>
 {/* here renders the form for editing a post in a new view */}
         <Route exact path='/:postId/editPost' render={ ({ match }) => (
           <EditPost
@@ -153,7 +160,7 @@ class App extends Component {
   }
 }
 
-function mapStateToProps ({ categories, posts, comments, sortBy, editMode }) {
+function mapStateToProps ({ categories, posts, comments, sortBy }) {
 // transform the posts object into an array for mapping over it. Same thing with the comments, and also mapped them to props.
 // also the categories and the sortBy are mapped to props.
   const postsToArray = Object.keys(posts).map((key) => (posts[key]))

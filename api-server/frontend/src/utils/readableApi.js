@@ -85,12 +85,22 @@ export const editPost = (postId, title, body) =>
     body: JSON.stringify({title, body})
   }).then(res => res.json())
 
-  export const editComment = (commentId, timestamp, body) =>
-    fetch(`${api}/comments/${commentId}`, {
-      method: 'PUT',
-      headers: {
-        ...headers,
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({timestamp, body})
-    }).then(res => res.json())
+export const editComment = (commentId, timestamp, body) =>
+  fetch(`${api}/comments/${commentId}`, {
+    method: 'PUT',
+    headers: {
+      ...headers,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({timestamp, body})
+  }).then(res => res.json())
+
+export const addComment = (id, timestamp, body, author, parentId) =>
+  fetch(`${api}/comments`, {
+    method: 'POST',
+    headers: {
+      ...headers,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ id, timestamp, body, author, parentId })
+  }).then(res => res.json())

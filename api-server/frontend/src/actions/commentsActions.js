@@ -3,6 +3,7 @@ export const CHANGE_COMMENT_VOTE_SCORE = 'CHANGE_COMMENT_VOTE_SCORE'
 export const DELETE_COMMENT = 'DELETE_COMMENT'
 export const DELETE_PARENT_COMMENT = 'DELETE_PARENT_COMMENT'
 export const EDIT_COMMENT = 'EDIT_COMMENT'
+export const ADD_COMMENT = 'ADD_COMMENT'
 
 export function getComments (comments) {
   return {
@@ -42,5 +43,12 @@ export function editComment ({commentId, timestamp, body}) {
     commentId,
     timestamp,
     body
+  }
+}
+
+export function addComment ( {newComment} ) {
+  return {
+    type: ADD_COMMENT,
+    newComment,
   }
 }

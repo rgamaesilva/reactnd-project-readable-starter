@@ -28,32 +28,34 @@ class  EditPost extends Component {
   }
 
   onEditPost = () => {
-    const {titleInput, bodyInput} = this.state
-    const {post} = this.props
+    const { titleInput, bodyInput } = this.state
+    const { post, editPost, history } = this.props
     if( titleInput === '' || bodyInput === '') {
       alert("ALL FIELDS MUST BE FILLED!!")
       return
     }
     api.editPost( post.id, titleInput, bodyInput ).then((post) => {
-      this.props.editPost({postId: post.id, title: titleInput, body: bodyInput})
+      editPost({postId: post.id, title: titleInput, body: bodyInput})
     })
-    this.props.history.push("/")
+    history.push("/")
   }
 
   render() {
 
+    const { post } = this.props
+
     return (
       <div className='form-container'>
-        {this.props.post &&
+        {post &&
           <div className='form-container'>
             <div className='form-container-top'>
-              <input className='form-input' type='text' defaultValue={this.props.post.title} onChange={this.onChangeTitle}/>
-              <input className='form-input' type='text' defaultValue={this.props.post.author} disabled/>
-              <select className='select' defaultValue={this.props.post.category} disabled>
-                <option value={this.props.post.category}>{this.props.post.category}</option>
+              <input className='form-input' type='text' defaultValue={post.title} onChange={this.onChangeTitle}/>
+              <input className='form-input' type='text' defaultValue={post.author} disabled/>
+              <select className='select' defaultValue={post.category} disabled>
+                <option value={post.category}>{post.category}</option>
               </select>
             </div>
-            <input className='form-input-body' type='text' defaultValue={this.props.post.body} onChange={this.onChangeBody}/>
+            <input className='form-input-body' type='text' defaultValue={post.body} onChange={this.onChangeBody}/>
             <button className='post-button' onClick={this.onEditPost}>SAVE</button>
           </div>
         }

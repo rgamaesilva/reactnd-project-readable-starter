@@ -23,32 +23,30 @@ class  EditComment extends Component {
 
   onEditComment = () => {
     const { bodyInput } = this.state
-    const { comment } = this.props
+    const { comment, history, editComment } = this.props
     if(bodyInput === '') {
       alert("ALL FIELDS MUST BE FILLED!!")
       return
     }
     const timestamp = Math.floor(Date.now())
-    console.log(comment.id)
-    console.log(timestamp)
-    console.log(bodyInput)
     api.editComment(comment.id, timestamp, bodyInput).then((comment) => {
-      console.log(comment)
-      this.props.editComment({commentId: comment.id, timestamp, body: bodyInput})
+      editComment({commentId: comment.id, timestamp, body: bodyInput})
     })
-    this.props.history.goBack()
+    history.goBack()
   }
 
   render() {
 
+    const { comment } = this.props
+
     return (
       <div className='form-container'>
-        {this.props.comment &&
+        {comment &&
           <div className='form-container'>
             <div className='form-container-top'>
-              <input className='form-input' defaultValue={this.props.comment.author} type='text' disabled/>
+              <input className='form-input' defaultValue={comment.author} type='text' disabled/>
             </div>
-            <input className='form-input-body' type='text' defaultValue={this.props.comment.body} onChange={this.onChangeBody}/>
+            <input className='form-input-body' type='text' defaultValue={comment.body} onChange={this.onChangeBody}/>
             <button className='post-button' onClick={this.onEditComment}>SAVE</button>
           </div>
         }

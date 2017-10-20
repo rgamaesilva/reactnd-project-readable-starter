@@ -4,17 +4,17 @@ import Post from '../Post'
 
 const PostsList = (props) => {
 
+  const { posts, onVotePost, onDeletePost, comments } = props
+
   return (
     <div className="posts-container">
-      {props.posts.length > 0 && props.posts.map((post) =>
+      {posts.length > 0 && posts.map((post) =>
         <Post
           post={post}
           key={post.id}
-          onVotePost={props.onVotePost}
-          onDeletePost={props.onDeletePost}
-          comments={props.comments.filter((comment) => post.id === comment.parentId)}
-          editMode={props.editMode}
-          onChangeEditMode={props.onChangeEditMode}
+          onVotePost={onVotePost}
+          onDeletePost={onDeletePost}
+          comments={comments.filter((comment) => post.id === comment.parentId)}
         />
       )}
     </div>

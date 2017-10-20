@@ -4,9 +4,12 @@ import { Link } from 'react-router-dom'
 
 
 const Header = (props) => {
+
+  const { title } = props
+
   return (
     <div>
-      <h1>{props.title}</h1>
+      <h1>{title}</h1>
       <Link to='/newpost'>
         <div className='open-addPost'>ADD NEW POST</div>
       </Link>
